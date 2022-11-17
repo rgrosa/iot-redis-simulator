@@ -7,5 +7,4 @@ public interface ExternalService {
 
     OwnerDataEntity getMasterDataFromExternalServer(Long id) throws InterruptedException;
 
-    String sendEnrichDataForAnotherServer(EnrichDataDTO enrichDataDTO);
 }

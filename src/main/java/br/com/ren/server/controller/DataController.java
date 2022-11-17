@@ -3,7 +3,6 @@ package br.com.ren.server.controller;
 import br.com.ren.server.dto.DataDTO;
 import br.com.ren.server.resource.ResponseResource;
 import br.com.ren.server.service.DataService;
-import br.com.ren.server.service.impl.DataServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

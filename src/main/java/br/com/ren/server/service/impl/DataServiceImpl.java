@@ -2,9 +2,10 @@ package br.com.ren.server.service.impl;
 
 
 import br.com.ren.server.dto.DataDTO;
-import br.com.ren.server.dto.EnrichDataDTO;
+import br.com.ren.server.entity.EnrichDataEntity;
 import br.com.ren.server.entity.OwnerDataEntity;
 import br.com.ren.server.repository.DataDAO;
+import br.com.ren.server.repository.EnrichDataDAO;
 import br.com.ren.server.resource.ResponseResource;
 import br.com.ren.server.service.DataService;
 import br.com.ren.server.service.ExternalService;
@@ -23,17 +24,26 @@ public class DataServiceImpl implements DataService {
     DataDAO dataDAO;
 
     @Autowired
+    EnrichDataDAO enrichDataDAO;
+
+    @Autowired
     ExternalService externalService;
 
     @Override
     public ResponseResource postData(DataDTO data) throws InterruptedException {
         OwnerDataEntity masterData = dataDAO.get(data.getIotAgentId());
         if(masterData == null){
-            log.info("No data found for id = {}",data.getIotAgentId());
+            log.info("No master data found in redisDB for id = {}",data.getIotAgentId());
+            log.info("Master da will be retrieved from external WS");
             masterData = externalService.getMasterDataFromExternalServer(data.getIotAgentId());
             dataDAO.save(masterData);
         }
         log.info("master data = {}", masterData);
-        return new ResponseResource(200, externalService.sendEnrichDataForAnotherServer(new EnrichDataDTO(data, masterData)), null);
+        log.info("saving enrich data in redis");
+        enrichDataDAO.save(new EnrichDataEntity(data.getIotAgentId(), data, masterData));
+
+        log.info("new enrich data = {}", enrichDataDAO.get(data.getIotAgentId()));
+
+        return new ResponseResource(200, "OK", null);
     }
 }

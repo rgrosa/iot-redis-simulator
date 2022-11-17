@@ -1,7 +1,6 @@
 package br.com.ren.server.service.impl;
 
 
-import br.com.ren.server.dto.EnrichDataDTO;
 import br.com.ren.server.dto.ExternalMasterDataDTO;
 import br.com.ren.server.entity.OwnerDataEntity;
 import br.com.ren.server.service.ExternalService;
@@ -43,8 +42,4 @@ public class ExternalServiceImpl implements ExternalService {
         return ownerDataEntity;
     }
 
-    @Override
-    public String sendEnrichDataForAnotherServer(EnrichDataDTO enrichDataDTO) {
-        return "Success - id = " + enrichDataDTO.getData().getIotAgentId();
-    }
 }
