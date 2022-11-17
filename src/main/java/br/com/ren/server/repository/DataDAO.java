@@ -1,11 +1,10 @@
 package br.com.ren.server.repository;
 
-import br.com.ren.server.entity.MasterEntity;
+import br.com.ren.server.entity.OwnerDataEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 @Repository
 public class DataDAO {
@@ -15,17 +14,13 @@ public class DataDAO {
     @Autowired
     private RedisTemplate template;
 
-    public MasterEntity save(MasterEntity data){
+    public OwnerDataEntity save(OwnerDataEntity data){
         template.opsForHash().put(HASH_KEY, data.getId(), data);
         return data;
     }
 
-    public List<MasterEntity> findAll(){
-        return (List<MasterEntity>) template.opsForHash().values(HASH_KEY);
-    }
-
-    public MasterEntity get(Long id){
-        return (MasterEntity) template.opsForHash().get(HASH_KEY, id);
+    public OwnerDataEntity get(Long id){
+        return (OwnerDataEntity) template.opsForHash().get(HASH_KEY, id);
     }
 
 }

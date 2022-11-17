@@ -19,11 +19,11 @@ public class DataController {
 
     @PostMapping("/data")
     public ResponseEntity<ResponseResource> postData(@RequestBody DataDTO data) throws Exception {
-        long startTime = System.nanoTime();
+        long startTime = System.currentTimeMillis();
         log.info("postData start - for id = {} ",data.getIotAgentId());
         ResponseEntity<ResponseResource> returnValue = ResponseEntity.ok().body(dataService.postData(data));
-        long endTime = System.nanoTime();
-        log.info("postData end - for id = {} execution time = {} ",data.getIotAgentId(), endTime - startTime);
+        long endTime = System.currentTimeMillis();
+        log.info("postData end - for id = {} execution time = {} ", data.getIotAgentId(), endTime - startTime);
         return returnValue;
     }
 }

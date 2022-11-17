@@ -6,12 +6,12 @@ import org.springframework.data.redis.core.RedisHash;
 import java.io.Serializable;
 
 @RedisHash("data")
-public class MasterEntity implements Serializable {
+public class OwnerDataEntity implements Serializable {
     @Id
     private Long id;
     private String name;
-    private String markName;
-    private String ownerName;
+    private String email;
+    private String phone;
 
     public Long getId() {
         return id;
@@ -29,29 +29,29 @@ public class MasterEntity implements Serializable {
         this.name = name;
     }
 
-    public String getMarkName() {
-        return markName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMarkName(String markName) {
-        this.markName = markName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
     public String toString() {
-        return "MasterEntity{" +
+        return "OwnerDataEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", markName='" + markName + '\'' +
-                ", ownerName='" + ownerName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }

@@ -3,7 +3,7 @@ package br.com.ren.server.service.impl;
 
 import br.com.ren.server.dto.DataDTO;
 import br.com.ren.server.dto.EnrichDataDTO;
-import br.com.ren.server.entity.MasterEntity;
+import br.com.ren.server.entity.OwnerDataEntity;
 import br.com.ren.server.repository.DataDAO;
 import br.com.ren.server.resource.ResponseResource;
 import br.com.ren.server.service.DataService;
@@ -13,8 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
@@ -29,14 +27,13 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public ResponseResource postData(DataDTO data) throws InterruptedException {
-        MasterEntity masterData = dataDAO.get(data.getIotAgentId());
+        OwnerDataEntity masterData = dataDAO.get(data.getIotAgentId());
         if(masterData == null){
+            log.info("No data found for id = {}",data.getIotAgentId());
             masterData = externalService.getMasterDataFromExternalServer(data.getIotAgentId());
             dataDAO.save(masterData);
         }
-        List<MasterEntity> masterdataList = dataDAO.findAll();
-
-        log.warn(masterdataList.toString());
+        log.info("master data = {}", masterData);
         return new ResponseResource(200, externalService.sendEnrichDataForAnotherServer(new EnrichDataDTO(data, masterData)), null);
     }
 }

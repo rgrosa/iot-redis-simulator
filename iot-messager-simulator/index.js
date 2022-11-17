@@ -60,8 +60,8 @@ function sendRequestToEnrichmentServer(){
 }
 
 function generateRandomId(){
-    const idList = [1361136, 122435, 5623193, 2531169, 611221, 1100132, 51355144]
-    return idList[Math.floor(Math.random() * 7)]
+    const idList = [31341,12121]
+    return idList[Math.floor(Math.random() * 2)]
 }
 
 function generateRandomCoordinate() {
