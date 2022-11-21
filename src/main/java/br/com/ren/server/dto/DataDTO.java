@@ -30,7 +30,7 @@ public class DataDTO implements Serializable {
         return isIotOn;
     }
 
-    public void setIotOn(Boolean iotOn) {
+    public void setIsIotOn(Boolean iotOn) {
         isIotOn = iotOn;
     }
 
